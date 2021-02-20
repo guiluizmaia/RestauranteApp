@@ -9,15 +9,23 @@ module.exports = {
 
     async edit(req, res){
         const { id_pizza } = req.params;
+        const { pizza } = req.body;
 
-        const pizza = await Pizza.findByPk(id_pizza);
-        /*const pizza = await Pizza.update
+        const pizzaBusca = await Pizza.findByPk(id_pizza);
+        
+        if(pizza.newSabor){
+            pizzaBusca.sabor = pizza.newSabor;
+        }
+        if(pizza.newDescricao){
+            pizzaBusca.descricao = pizza.newDescricao;
+        }
+        if(pizza.newPreco){
+            pizzaBusca.preco = pizza.newPreco;
+        }
 
-        const teste = await pizza.build({ sabor: 'teste'});*/
+        await pizzaBusca.save();
 
-        pizza.sabor = 'teste';
-        await pizza.save();
-        return res.json(pizza);
+        return res.json(pizzaBusca);
     },
 
     async create(req, res){
