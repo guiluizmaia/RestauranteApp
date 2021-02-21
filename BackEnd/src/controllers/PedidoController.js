@@ -8,6 +8,23 @@ module.exports = {
         return res.json(pedidos);
     },
 
+    async um(req, res){
+        const { id_pedidos } = req.params;
+        const pedido = await Pedido.findByPk(id_pedidos);
+
+        if (!pedido) { return res.status(400).send({message: 'pedido não encontrado'}) }
+
+        const sab = JSON.parse(pedido.sabores)
+        const map = []
+        for (const value of sab){
+            const pizza = await Pizza.findByPk(value);
+            map.push(pizza.sabor);
+        }
+
+        return res.json({pedido: pedido, sabores: map})
+
+    },
+
     async dropa(req, res){
         const { id_pedido } = req.params;
         const pedidos = await Pedido.destroy({
@@ -15,7 +32,7 @@ module.exports = {
                 id: id_pedido
             }
         });
-        return res.json(pedidos);
+        return res.json({pedidoDeletado: id_pedido});
     },
 
     async criarpedido(req, res){

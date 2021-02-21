@@ -36,5 +36,27 @@ module.exports = {
         return res.send(pizza)
     },
 
+    async um(req, res){
+        const { id_pizza } = req.params;
+
+        const pizza = await Pizza.findByPk(id_pizza);
+
+        if(!pizza){ return res.status(400).send({message: 'Pizza não encontrada'}) }
+
+        return res.json(pizza)
+    },
+
+    async deletar(req, res){
+        const { id_pizza } = req.params;
+
+        const pizza = await Pizza.destroy( 
+            {  
+            where: {
+                id: id_pizza
+            }
+        });
+
+        return res.json({pedidoDeletado: id_pizza});
+    }
 
 }
