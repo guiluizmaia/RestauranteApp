@@ -1,0 +1,12 @@
+{
+  "name": "FrontEndRestaurante",
+  "displayName": "FrontEndRestaurante",
+  "expo": {
+    "name": "FrontEndRestaurante",
+    "slug": "FrontEndRestaurante",
+    "version": "1.0.0",
+    "assetBundlePatterns": [
+      "**/*"
+    ]
+  }
+}
